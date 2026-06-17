@@ -1,0 +1,113 @@
+{
+	"comennt": {
+		"prefix": "come",
+		"body": ["/**", " *$1", "*/"],
+	},
+	"md code": {
+		"prefix": "code",
+		"body": ["``` ", "  $1", "```"],
+	},
+	"position: absolute": {
+		"prefix": "all0",
+		"body": [
+			"position: absolute;",
+			"top: 0;",
+			"right: 0;",
+			"bottom: 0;",
+			"left: 0;",
+		],
+	},
+	"object svg": {
+		"prefix": "svg",
+		"body": ["<object data='$1' type='image/svg+xml'></object>"],
+	},
+	"HTML in PHP": {
+		"prefix": "php",
+		"body": "<?php $1 ?>",
+	},
+	"PHP URL": {
+		"prefix": "url",
+		"body": "<?php echo get_template_directory_uri(); ?>",
+	},
+	"SVG cover": {
+		"prefix": "preser",
+		"body": ["preserveAspectRatio='none'"],
+	},
+	"picture temp sp": {
+		"prefix": "picture-sp",
+		"body": [
+			"<picture>",
+			"<source type='image/webp' media='(min-width: 960px)' srcset='/assets/images/$1/webp/$2-pc.webp'/>",
+			"<source media='(min-width: 960px)' srcset='/assets/images/$1/$2-pc.$3'/>",
+			"<source type='image/webp' srcset='/assets/images/$1/webp/$2.webp'/>",
+			"<img src='/assets/images/$1/$2.$3' width='$4' height='' alt='' decoding='auto' loading='lazy' />",
+			"</picture>",
+		],
+	},
+	"picture temp pc": {
+		"prefix": "picture-pc",
+		"body": [
+			"<picture>",
+			"<source type='image/webp' media='(max-width: 799px)' srcset='/assets/images/$1/webp/$2-sp.webp 1x, /assets/images/$1/webp/$2-sp@2x.webp 2x'/>",
+			"<source media='(max-width: 799px)' srcset='/assets/images/$1/$2-sp.$3 1x, /assets/images/$1/$2-sp@2x.$3 2x'/>",
+			"<source type='image/webp' srcset='/assets/images/$1/webp/$2.webp 1x, /assets/images/$1/webp/$2@2x.webp 2x'/>",
+			"<img src='/assets/images/$1/$2.$3' srcset='/assets/images/$1/$2@2x.$3 2x' width='$4' height='' alt='' decoding='async' loading='lazy' />",
+			"</picture>",
+		],
+	},
+	"picture temp svg": {
+		"prefix": "picture-svg",
+		"body": [
+			"<span class='uVisuallyHidden'>$1</span>",
+			"",
+			"<picture>",
+			"<source media='(min-width: 960px)' srcset='/assets/images/$2/$3-pc.svg'>",
+			"<img src='/assets/images/$2/$3.svg' width='$4' height='' alt='' decoding='async' loading='lazy' />",
+			"</picture>",
+		],
+	},
+	"px to vw": {
+		"prefix": "px-vw",
+		"body": ["px-vw($1, $2)$3"],
+	},
+	"px to vh": {
+		"prefix": "px-vh",
+		"body": ["px-vh($1, $2)$3"],
+	},
+	"rem & vw": {
+		"prefix": "remvw",
+		"body": ["remvw($1, $2)$3"],
+	},
+	"clamp": {
+		"prefix": "clampvw",
+		"body": ["clampvw($1, $2, $3, $4)"],
+	},
+	"func-min": {
+		"prefix": "func-min",
+		"body": ["func-min($1px, px-vw($2, $3))$4"],
+	},
+	"px to rem": {
+		"prefix": "to-rem",
+		"body": ["rem($1)$2"],
+	},
+	"fluid": {
+		"prefix": "fluid",
+		"body": ["fluid($1, $2)$3"],
+	},
+	"fluid-rem": {
+		"prefix": "fluid-rem",
+		"body": ["fluid-rem($1, $2)$3"],
+	},
+	"visuallyHidden": {
+		"prefix": "uVisuallyHidden",
+		"body": ["<span class='uVisuallyHidden'>$1</span>"],
+	},
+	"blank": {
+		"prefix": "blank",
+		"body": ["target=\"_blank\" rel=\"noopener noreferrer\""],
+	},
+	"prettier-ignore": {
+		"prefix": "prettier-ignore",
+		"body": ["<!-- prettier-ignore -->"],
+	},
+}

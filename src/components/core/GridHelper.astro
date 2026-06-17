@@ -1,0 +1,23 @@
+<div class="cGrid">
+	{
+		Array.from({ length: 62 }, (_, i) => (
+			<div class="cGrid__line" data-id={i + 1} />
+		))
+	}
+</div>
+
+<style lang="scss">
+	.cGrid {
+		position: fixed;
+		inset: 0;
+		pointer-events: none;
+		z-index: 9999;
+		display: grid;
+		grid-template-rows: auto;
+		grid-template-columns: repeat(var(--grid-columns), 1fr);
+
+		&__line {
+			border-right: 1px solid rgba(255, 0, 0, 0.2);
+		}
+	}
+</style>

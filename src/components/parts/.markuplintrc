@@ -1,0 +1,11 @@
+{
+	"extends": [
+		"@spicato-inc/config-markuplint"
+	],
+	"parser": {
+		"\\.astro$": "@markuplint/astro-parser"
+	},
+	"rules": {
+		"heading-levels": false
+	}
+}

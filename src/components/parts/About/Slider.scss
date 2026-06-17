@@ -1,0 +1,19 @@
+// @use '@/assets/scss/foundation' as *;
+
+:host {
+	--output-file-name: about-slider;
+}
+
+.splide {
+	width: 100%;
+	height: 100%;
+}
+
+.splide__slide {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 32px;
+	color: #fff;
+	background-color: #333;
+}

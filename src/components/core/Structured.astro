@@ -1,0 +1,53 @@
+---
+interface Props {
+	structured: { name: string; path: string }[];
+}
+
+const { structured = [] } = Astro.props;
+
+const domainURL = String(Astro.site).replace(/\/$/, '');
+const jsonLd = JSON.stringify({
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{
+			'@type': 'ListItem',
+			position: 1,
+			name: '株式会社 ？？？',
+			item: Astro.site,
+		},
+		...structured.map((item, index) => {
+			const path = domainURL + item.path;
+			const position = index + 2;
+			const name = item.name;
+
+			return {
+				'@type': 'ListItem',
+				position,
+				name,
+				item: path,
+			};
+		}),
+	],
+});
+---
+
+{
+	// structured が空の場合は何も表示しない
+	() => {
+		if (structured.length === 0) {
+			return;
+		} else {
+			console.log(jsonLd);
+
+			return (
+				// ここに構造化データのコードを記述
+				<script
+					is:inline
+					type="application/ld+json"
+					set:html={jsonLd}
+				/>
+			);
+		}
+	}
+}

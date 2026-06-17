@@ -1,0 +1,19 @@
+{
+	"extends": [
+		"@spicato-inc/config-markuplint"
+	],
+	"parser": {
+		"\\.astro$": "@markuplint/astro-parser"
+	},
+	"nodeRules": [
+		{
+			"selector": "picture",
+			"rules": {
+				"permitted-contents": false
+			}
+		}
+	],
+	"rules": {
+		"heading-levels": false
+	}
+}

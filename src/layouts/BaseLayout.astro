@@ -1,0 +1,52 @@
+---
+interface Props {
+	slug: string;
+	title?: string;
+	description?: string;
+	noindex?: boolean;
+}
+
+// base
+import BaseHead from '@/components/base/BaseHead.astro';
+import BaseHeader from '@/components/base/BaseHeader.astro';
+import BaseFooter from '@/components/base/BaseFooter.astro';
+
+// core
+import GridHelper from '@/components/core/GridHelper.astro';
+
+const { slug, ...props } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ja" data-swup-slug={slug}>
+	<head>
+		<BaseHead {...props} />
+
+		<script>
+			import '@js/app.js';
+		</script>
+
+		<slot name="before-close-head" />
+	</head>
+
+	<body class="preload">
+		<div id="app">
+			<div class="lContainer">
+				<BaseHeader />
+
+				<main id="swup" class="lMain">
+					<slot />
+				</main>
+
+				<BaseFooter />
+			</div>
+		</div>
+
+		{
+			// ビルド時には削除
+			import.meta.env.DEV && <GridHelper />
+		}
+
+		<slot name="before-close-body" />
+	</body>
+</html>

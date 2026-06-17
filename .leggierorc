@@ -1,0 +1,14 @@
+{
+	"$schema": "./node_modules/@spicato-inc/leggiero/schemas/leggierorc.schema.json",
+	"quality": {
+		"jpg": 80,
+		"png": 80,
+		"gif": 80,
+		"webp": 80,
+		"avif": 60
+	},
+	"webp": false,
+	"avif": true,
+	"input": "src/assets/images",
+	"output": "public/assets/images"
+}

@@ -1,0 +1,18 @@
+// @use '../global' as *;
+
+.spacer {
+	height: 50vh;
+}
+
+.container {
+	padding: 0 20vw;
+}
+
+.headline {
+	font-size: fluid-px(24, 40);
+}
+
+.text {
+	font-size: to-rem(14);
+	line-height: 2;
+}

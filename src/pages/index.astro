@@ -1,0 +1,34 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Button from '@components/core/Button/Button.astro';
+
+const props = {
+	slug: 'home',
+	title: 'TOP',
+};
+---
+
+<BaseLayout {...props}>
+	<div class="container">
+		<h1 class="top">Astro</h1>
+		<div class="box"></div>
+
+		<div class="note">
+			<div class="headline">見出し</div>
+
+			<div class="text">
+				ダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキスト
+			</div>
+		</div>
+
+		<div class="button">
+			<Button> Home Button </Button>
+		</div>
+	</div>
+
+	<Fragment slot="before-close-head">
+		<script>
+			import '@js/pages/home.js';
+		</script>
+	</Fragment>
+</BaseLayout>

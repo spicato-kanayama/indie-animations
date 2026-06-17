@@ -1,0 +1,78 @@
+---
+interface Props {
+	title?: string;
+	description?: string;
+	noindex?: boolean;
+}
+
+import { SEO } from 'astro-seo';
+const props = Astro.props;
+
+const BASE_TITLE = 'Base Title';
+const BASE_DESCRIPTION =
+	'A heavily optimized description full of well-researched keywords.';
+
+const title = props.title ? `${props.title} | ${BASE_TITLE}` : BASE_TITLE;
+const description = props.description ? props.description : BASE_DESCRIPTION;
+const noindex = props.noindex ?? false;
+
+let openGraph = {
+	basic: {
+		title,
+		type: 'website',
+		image: `${Astro.url.href}/ogimage.png`,
+	},
+};
+
+let twitter = {
+	creator: '#nolink',
+};
+
+let extend = {
+	meta: [
+		{ name: 'format-detection', content: 'telephone=no' },
+		{ name: 'generator', content: Astro.generator },
+		{ name: 'twitter:card', content: 'summary_large_image' },
+		{
+			name: 'twitter:image',
+			content: `${Astro.url.href}/ogimage.png`,
+		},
+		{ name: 'twitter:title', content: `${title}` },
+		{ name: 'twitter:description', content: `${description}` },
+		{ name: 'theme-color', content: '#ffffff' },
+	],
+	link: [
+		{ rel: 'shortcut icon', href: '/favicon.ico' },
+		{ rel: 'icon', href: '/favicon.png' },
+		{ rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
+		{ rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+	],
+};
+---
+
+<>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<SEO
+		title={title}
+		extend={extend}
+		description={description}
+		noindex={noindex}
+		openGraph={openGraph}
+		twitter={twitter}
+	/>
+
+	<!-- <link rel="sitemap" href="/sitemap-index.xml" /> -->
+
+	<!-- Google Fonts -->
+	<!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="preload" as="style" fetchpriority="high" href="{href}" />
+	<link
+		rel="stylesheet"
+		href="{href}"
+		media="print"
+		onload='this.media="all"'
+	/> -->
+</>

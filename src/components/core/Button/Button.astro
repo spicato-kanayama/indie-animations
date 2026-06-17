@@ -1,0 +1,23 @@
+---
+interface Props {
+	id?: string;
+	type?: 'button' | 'submit';
+	className?: string;
+	option?: Object;
+}
+
+const { id, type = 'button', className = '', ...option } = Astro.props as Props;
+---
+
+<c-button
+	id={id}
+	class:list={['cButton', 'js-button', className]}
+	type={type}
+	{...option}
+>
+	<slot />
+</c-button>
+
+<script>
+	import('./Button.js');
+</script>

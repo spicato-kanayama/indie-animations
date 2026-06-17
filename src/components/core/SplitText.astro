@@ -1,0 +1,39 @@
+---
+interface Props {
+	text: string;
+	base?: number;
+	className?: string;
+}
+
+const { text, base = 0, className } = Astro.props;
+---
+
+{
+	() => {
+		const words = text.split('');
+		const baseNumber = Number(base);
+		const classNameValue = className ? className : '-char';
+
+		return (
+			<span class='uVisuallyHidden'>{text}</span>
+
+			<Fragment>
+				{words.map((word, index) => {
+					const indexNumber = index + baseNumber;
+					let char = word;
+
+					// スペースの場合は &nbsp; に変換
+					if (word === ' ' || word === '　') {
+						char = '&nbsp;';
+					}
+
+					return (
+						<span class={classNameValue} style={`--i: ${indexNumber}`} aria-hidden="true">
+							{char}
+						</span>
+					)
+				})}
+			</Fragment>
+		);
+	}
+}

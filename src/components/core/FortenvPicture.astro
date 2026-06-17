@@ -1,0 +1,69 @@
+---
+interface Props {
+	path: string;
+	name: string;
+	type?: string;
+	ext?: string;
+	width?: string;
+	height?: string;
+	alt?: string;
+	decoding?: 'auto' | 'sync' | 'async';
+	loading?: 'lazy' | 'eager';
+	pc?: boolean;
+	className?: string;
+}
+
+const {
+	path: imagePath,
+	name: imageName,
+	ext: imageExt = 'png',
+	type: imageType = 'avif',
+	width,
+	height,
+	alt = null,
+	decoding = 'auto',
+	loading = 'lazy',
+	pc = true,
+	className = '',
+} = Astro.props;
+
+// 共通の属性を計算
+const imgProps = {
+	src: `/assets/images/${imagePath}/${imageName}.${imageExt}`,
+	...(className && { class: className }),
+	...(width && { width }),
+	...(height && { height }),
+	decoding,
+	loading,
+};
+---
+
+<picture>
+	{
+		!imageName.includes(`no-${imageType}`) && imageExt !== 'svg' && pc && (
+			<source
+				type={`image/${imageType}`}
+				media="(min-width: 960px)"
+				srcset={`/assets/images/${imagePath}/${imageType}/${imageName}-pc.${imageType}`}
+			/>
+		)
+	}
+	{
+		pc && (
+			<source
+				media="(min-width: 960px)"
+				srcset={`/assets/images/${imagePath}/${imageName}-pc.${imageExt}`}
+			/>
+		)
+	}
+	{
+		!imageName.includes(`no-${imageType}`) && imageExt !== 'svg' && (
+			<source
+				type={`image/${imageType}`}
+				srcset={`/assets/images/${imagePath}/${imageType}/${imageName}.${imageType}`}
+			/>
+		)
+	}
+
+	{alt ? <img {...imgProps} alt={alt} /> : <img {...imgProps} alt="" />}
+</picture>

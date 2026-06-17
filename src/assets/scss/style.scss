@@ -1,0 +1,14 @@
+// 最新版 : https://github.com/spicato-inc/fortenv-style
+// @use './foundation';
+
+// Layout
+@use './layouts/header';
+@use './layouts/footer';
+
+// Pages
+@use './pages/home';
+@use './pages/about';
+
+:host {
+	--output-file-name: style;
+}

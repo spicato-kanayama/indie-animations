@@ -1,0 +1,67 @@
+{
+	"name": "fortenv",
+	"main": "src/assets/js/script.js",
+	"type": "module",
+	"version": "4.1.4",
+	"scripts": {
+		"start": "astro dev",
+		"build": "astro build --mode production",
+		"preview": "astro preview",
+		"astro": "astro",
+		"astro:dev": "astro dev",
+		"new": "npx scaffdog generate",
+		"sharp:watch": "npx @spicato-inc/leggiero watch",
+		"sharp:all": "npx @spicato-inc/leggiero all",
+		"dev": "run-p -l -c astro:dev sharp:watch",
+		"lint": "run-p -l -c --aggregate-output lint:*",
+		"lint:eslint": "eslint ./src",
+		"lint:stylelint": "stylelint \"src/**/*.{css,scss}\"",
+		"lint:prettier": "prettier --check .",
+		"lint:markuplint": "markuplint \"**/*.astro\"",
+		"fix": "run-s fix:prettier fix:eslint fix:stylelint",
+		"fix:eslint": "npm run lint:eslint -- --fix",
+		"fix:prettier": "npm run lint:prettier -- --write",
+		"fix:stylelint": "stylelint \"src/**/*.{css,scss}\" --fix"
+	},
+	"dependencies": {
+		"@astrojs/sitemap": "^3.7.3",
+		"@playform/compress": "^0.2.3",
+		"@splidejs/splide": "^4.1.4",
+		"@swup/ga-plugin": "^2.0.0",
+		"@swup/gtm-plugin": "^2.0.0",
+		"@swup/head-plugin": "^2.3.1",
+		"@swup/js-plugin": "^3.2.0",
+		"@swup/preload-plugin": "^3.2.11",
+		"@swup/scripts-plugin": "^2.1.0",
+		"astro": "^6.4.2",
+		"astro-seo": "^1.1.0",
+		"gsap": "^3.15.0",
+		"lenis": "^1.3.23",
+		"nanostores": "^1.3.0",
+		"swup": "^4.9.0"
+	},
+	"devDependencies": {
+		"@markuplint/astro-parser": "^4.18.3",
+		"@spicato-inc/config-eslint": "^1.0.8",
+		"@spicato-inc/config-markuplint": "^1.0.6",
+		"@spicato-inc/config-prettier": "^1.0.8",
+		"@spicato-inc/config-stylelint": "^1.0.6",
+		"@spicato-inc/leggiero": "^2.1.0",
+		"autoprefixer": "^10.5.0",
+		"glob": "^13.0.6",
+		"npm-run-all2": "^9.0.1",
+		"postcss-preset-env": "^11.3.0",
+		"prettier-plugin-astro": "^0.14.1",
+		"sass": "^1.100.0",
+		"scaffdog": "^4.1.0"
+	},
+	"browserslist": [
+		"> 0.5%, last 2 versions, Firefox ESR, not dead",
+		"Safari >= 18",
+		"iOS >= 18"
+	],
+	"volta": {
+		"node": "22.14.0",
+		"npm": "11.2.0"
+	}
+}
