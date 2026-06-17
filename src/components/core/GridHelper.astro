@@ -11,13 +11,21 @@
 		position: fixed;
 		inset: 0;
 		pointer-events: none;
-		z-index: 9999;
+		z-index: -1;
 		display: grid;
 		grid-template-rows: auto;
 		grid-template-columns: repeat(var(--grid-columns), 1fr);
 
 		&__line {
-			border-right: 1px solid rgba(255, 0, 0, 0.2);
+			border-left: 1px solid var(--color-gray-1);
+
+			&:nth-child(n + 25) {
+				display: none;
+			}
+
+			&:first-child {
+				border-left: none;
+			}
 		}
 	}
 </style>

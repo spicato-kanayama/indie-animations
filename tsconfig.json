@@ -3,8 +3,6 @@
 	"compilerOptions": {
 		"paths": {
 			"@/*": ["./src/*"],
-			"@stores/*": ["./src/assets/js/stores/*"],
-			"@utils/*": ["./src/assets/js/utils/*"],
 			"@components/*": ["./src/components/*"],
 			"@layouts/*": ["./src/layouts/*"],
 			"@images/*": ["./src/assets/images/*"],

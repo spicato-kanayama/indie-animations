@@ -31,6 +31,8 @@ const { slug, ...props } = Astro.props;
 
 	<body class="preload">
 		<div id="app">
+			<GridHelper />
+
 			<div class="lContainer">
 				<BaseHeader />
 
@@ -41,11 +43,6 @@ const { slug, ...props } = Astro.props;
 				<BaseFooter />
 			</div>
 		</div>
-
-		{
-			// ビルド時には削除
-			import.meta.env.DEV && <GridHelper />
-		}
 
 		<slot name="before-close-body" />
 	</body>

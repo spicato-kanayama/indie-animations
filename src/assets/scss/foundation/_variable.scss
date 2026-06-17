@@ -1,0 +1,241 @@
+@use 'sass:map';
+@use 'sass:math';
+@use '../global' as *;
+
+@property --vw {
+	syntax: '<length>';
+	initial-value: 0;
+	inherits: true;
+}
+
+@property --one-rem {
+	syntax: '<length>';
+	initial-value: 0;
+	inherits: false;
+}
+
+:root {
+	--vw: 100vw;
+	--one-rem: 1rem;
+	// prettier-ignore
+	--window-width: calc(tan(atan2(var(--vw), 1px)) * min(1, 16 / tan(atan2(var(--one-rem), 1px))));
+	// 小さくなりすぎないように、スケールの最小値を1に設定する場合
+	--scale: max(1, var(--window-width) / #{$sp-vw});
+	// スケールの最小値を1に設定しない場合
+	// --scale: var(--window-width) / #{$sp-vw};
+	--font-scale: var(--scale);
+	--px: calc(1px * var(--scale));
+	--rem: calc(1rem * var(--scale));
+	--font-rem: calc(1rem * var(--font-scale));
+	--leading-trim: calc((1em - 1lh) / 2);
+
+	// fonts
+	--font-instrument-serif: 'Instrument Serif';
+	--font-shippori-mincho: 'Shippori Mincho';
+
+	// color
+	--color-white: #fff;
+	--color-black: #000;
+	--color-background-black: #1c1c1c;
+	--color-text-white: #f5f5f5;
+	--color-gray-1: #3a3a3a;
+
+	// breakpoint
+	--breakpoint-xs: #{map.get($breakpoints, xs)}px;
+	--breakpoint-sm: #{map.get($breakpoints, sm)}px;
+	--breakpoint-md: #{map.get($breakpoints, md)}px;
+	--breakpoint-lg: #{map.get($breakpoints, lg)}px;
+	--breakpoint-xl: #{map.get($breakpoints, xl)}px;
+	--breakpoint-xxl: #{map.get($breakpoints, xxl)}px;
+
+	// ease
+	--ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+	--ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+	--ease-in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+	--ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+	--ease-in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+	--ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+	--ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	--ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+	--ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+	--ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+	--ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+	--ease-out-circ: cubic-bezier(0.075, 0.82, 0.165, 1);
+	--ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+	--ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+	--ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+	--ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
+	--ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+	--ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+	--ease-gleasing: cubic-bezier(0.4, 0, 0, 1);
+	--ease-linear: linear;
+
+	// https://github.com/argyleink/open-props/blob/main/src/props.easing.css
+	// linear() は Safari17.2 で未対応
+	--ease-spring-1: linear(
+		0,
+		0.006,
+		0.025 2.8%,
+		0.101 6.1%,
+		0.539 18.9%,
+		0.721 25.3%,
+		0.849 31.5%,
+		0.937 38.1%,
+		0.968 41.8%,
+		0.991 45.7%,
+		1.006 50.1%,
+		1.015 55%,
+		1.017 63.9%,
+		1.001
+	);
+	--ease-spring-2: linear(
+		0,
+		0.007,
+		0.029 2.2%,
+		0.118 4.7%,
+		0.625 14.4%,
+		0.826 19%,
+		0.902,
+		0.962,
+		1.008 26.1%,
+		1.041 28.7%,
+		1.064 32.1%,
+		1.07 36%,
+		1.061 40.5%,
+		1.015 53.4%,
+		0.999 61.6%,
+		0.995 71.2%,
+		1
+	);
+	--ease-spring-3: linear(
+		0,
+		0.009,
+		0.035 2.1%,
+		0.141 4.4%,
+		0.723 12.9%,
+		0.938 16.7%,
+		1.017,
+		1.077,
+		1.121,
+		1.149 24.3%,
+		1.159,
+		1.163,
+		1.161,
+		1.154 29.9%,
+		1.129 32.8%,
+		1.051 39.6%,
+		1.017 43.1%,
+		0.991,
+		0.977 51%,
+		0.974 53.8%,
+		0.975 57.1%,
+		0.997 69.8%,
+		1.003 76.9%,
+		1
+	);
+	--ease-spring-4: linear(
+		0,
+		0.009,
+		0.037 1.7%,
+		0.153 3.6%,
+		0.776 10.3%,
+		1.001,
+		1.142 16%,
+		1.185,
+		1.209 19%,
+		1.215 19.9% 20.8%,
+		1.199,
+		1.165 25%,
+		1.056 30.3%,
+		1.008 33%,
+		0.973,
+		0.955 39.2%,
+		0.953 41.1%,
+		0.957 43.3%,
+		0.998 53.3%,
+		1.009 59.1% 63.7%,
+		0.998 78.9%,
+		1
+	);
+	--ease-spring-5: linear(
+		0,
+		0.01,
+		0.04 1.6%,
+		0.161 3.3%,
+		0.816 9.4%,
+		1.046,
+		1.189 14.4%,
+		1.231,
+		1.254 17%,
+		1.259,
+		1.257 18.6%,
+		1.236,
+		1.194 22.3%,
+		1.057 27%,
+		0.999 29.4%,
+		0.955 32.1%,
+		0.942,
+		0.935 34.9%,
+		0.933,
+		0.939 38.4%,
+		1 47.3%,
+		1.011,
+		1.017 52.6%,
+		1.016 56.4%,
+		1 65.2%,
+		0.996 70.2%,
+		1.001 87.2%,
+		1
+	);
+
+	@include z-map(
+		(
+			--z-base: 100,
+		)
+	);
+
+	// Grid
+	--grid-columns: 24;
+}
+
+:lang(en) {
+	--leading-trim: calc((1cap - 1lh) / 2);
+}
+
+@include responsive(sm) {
+	:root {
+		--font-scale: max(
+			1,
+			var(--window-width) / #{map.get($breakpoints, sm)}
+		);
+	}
+}
+
+@include pc {
+	:root {
+		// スケールの最小値を1に設定しない場合
+		--scale: calc(var(--window-width) / #{$pc-vw});
+		// 小さくなりすぎないように、スケールの最小値を1に設定する場合
+		// --scale: max(1, var(--window-width) / #{$pc-vw});
+		--font-scale: max(0.9, var(--window-width) / #{$pc-vw});
+		// Grid
+		--grid-columns: 62;
+	}
+}
+
+@include responsive(xxl) {
+	:root {
+		--font-scale: #{math.div(map.get($breakpoints, xxl), $pc-vw)};
+	}
+}
+
+// linear() が未対応の場合
+@supports not (animation-timing-function: linear(0, 1)) {
+	:root {
+		--ease-spring-1: var(--ease-out-quad);
+		--ease-spring-2: var(--ease-out-cubic);
+		--ease-spring-3: var(--ease-out-quart);
+		--ease-spring-4: var(--ease-out-quint);
+		--ease-spring-5: var(--ease-out-expo);
+	}
+}

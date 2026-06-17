@@ -1,0 +1,81 @@
+// ベース：https://github.com/elad2412/the-new-css-reset
+
+*:where(:not(html, iframe, canvas, img, svg, video, audio, svg *, symbol *)) {
+	all: unset;
+	display: revert;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	min-inline-size: 0;
+}
+
+a,
+button {
+	cursor: revert;
+}
+
+ol,
+ul,
+menu,
+summary {
+	list-style: none;
+}
+
+ol {
+	counter-reset: revert;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+input,
+textarea {
+	user-select: auto;
+}
+
+textarea {
+	white-space: revert;
+}
+
+meter {
+	appearance: revert;
+}
+
+:where(pre) {
+	all: revert;
+	box-sizing: border-box;
+}
+
+::placeholder {
+	color: unset;
+}
+
+:where([contenteditable]:not([contenteditable='false'])) {
+	line-break: after-white-space;
+	overflow-wrap: break-word;
+	user-select: auto;
+	-moz-user-modify: read-write;
+	-webkit-user-modify: read-write;
+}
+
+:where([draggable='true']) {
+	-webkit-user-drag: element;
+}
+
+:where(dialog:modal) {
+	all: revert;
+	box-sizing: border-box;
+}
+
+::-webkit-details-marker {
+	display: none;
+}
+
+// フォーカス要素
+:where(a, button, summary, label, input, select, textarea):focus-visible {
+	outline: var(--focus-color, -webkit-focus-ring-color) auto 1px;
+}

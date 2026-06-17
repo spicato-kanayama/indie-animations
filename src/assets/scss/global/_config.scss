@@ -1,0 +1,15 @@
+// breakpoints
+$breakpoints: (
+	xs: 400,
+	sm: 576,
+	md: 768,
+	lg: 960,
+	xl: 1488,
+	xxl: 1920,
+) !default;
+
+// viewport（カンプサイズ）
+$sp-vw: 400;
+$sp-vh: 750;
+$pc-vw: 1488;
+$pc-vh: 848;

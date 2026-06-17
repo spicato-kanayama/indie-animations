@@ -8,6 +8,14 @@ export function debounce(func, timeout = 300) {
 	};
 }
 
+export function loop(current, total) {
+	return ((current % total) + total) % total;
+}
+
+export function lerp(start, end, t) {
+	return start * (1 - t) + end * t;
+}
+
 export const getCssVar = (target, property) => {
 	const value = getComputedStyle(target).getPropertyValue(property);
 

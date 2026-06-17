@@ -1,0 +1,44 @@
+---
+// layouts
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+type PostProps = {
+	slug: string;
+	title: string;
+};
+
+type PostModule = {
+	default: any;
+	props: PostProps;
+};
+
+export function getStaticPaths() {
+	const postModules = import.meta.glob<PostModule>('../posts/*.astro', {
+		eager: true,
+	});
+
+	return Object.values(postModules).map((mod) => ({
+		params: {
+			slug: mod.props.slug,
+		},
+		props: {
+			post: mod.props,
+			PostComponent: mod.default,
+		},
+	}));
+}
+
+const { post, PostComponent } = Astro.props as {
+	post: PostProps;
+	PostComponent: any;
+};
+
+const pageProps = {
+	slug: post.slug,
+	title: post.title,
+};
+---
+
+<BaseLayout {...pageProps}>
+	<PostComponent />
+</BaseLayout>

@@ -1,0 +1,131 @@
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:string';
+@use 'sass:meta';
+@use './config' as *;
+
+// pxをvwに変換
+@function px-vw($size, $viewport: $sp-vw) {
+	$rate: math.div(100, $viewport);
+
+	@return math.div((math.round(($rate * $size * 1vw) * 100)), 100);
+}
+
+// pxをvhに変換
+@function px-vh($size, $viewport: $sp-vh) {
+	$rate: math.div(100, $viewport);
+
+	@return math.div((math.round(($rate * $size * 1vh) * 100)), 100);
+}
+
+@function px-svh($size, $viewport: $sp-vh) {
+	$rate: math.div(100, $viewport);
+
+	@return math.div((math.round(($rate * $size * 1svh) * 100)), 100);
+}
+
+// pxをvminに変換
+@function px-vmin($size, $viewport: $sp-vw) {
+	$rate: math.div(100, $viewport);
+
+	@return math.div((math.round(($rate * $size * 1vmin) * 100)), 100);
+}
+
+// pxをvmaxに変換
+@function px-vmax($size, $viewport: $sp-vw) {
+	$rate: math.div(100, $viewport);
+
+	@return math.div((math.round(($rate * $size * 1vmax) * 100)), 100);
+}
+
+// CSS変数の値を使用できる px-vw
+@function var-vw($var, $viewport: $sp-vw) {
+	$rate: math.div(math.round(math.div(100, $viewport) * 10000), 10000);
+
+	@return calc($rate * var(#{$var}) * 1vw);
+}
+
+// rem と vw を組み合わせる
+@function rem-vw($size, $viewport: $sp-vw) {
+	$rate: math.div(100, $viewport);
+	$vw: math.div((math.round(($rate * $size * 1vw) * 100)), 100);
+	$rem: math.div($size, 16);
+
+	@return calc(#{$vw} + (#{$rem}rem - #{$size}px));
+}
+
+// clamp生成
+@function clamp-vw($min, $size, $max, $vp: $sp-vw) {
+	$min: math.div($min, 16) * 1rem;
+	$max: math.div($max, 16) * 1rem;
+	$rate: math.div(100, $vp);
+	$vw: math.div((math.round(($rate * $size * 1vw) * 100)), 100);
+
+	@return clamp($min, $vw, $max);
+}
+
+// 単位付き数値から単位を除去する関数
+// ・数値に単位がある場合、1を掛けることで単位部分を打ち消し、数値のみ返す
+// ・単位が無い場合はそのまま返す
+@function strip-unit($number) {
+	@if meta.type-of($number) == 'number' and not math.is-unitless($number) {
+		@return math.div($number, $number * 0 + 1);
+	}
+
+	@return $number;
+}
+
+// scale-rem
+@function srem($size, $base-font-size: 16) {
+	@return calc(math.div($size, $base-font-size) * var(--rem));
+}
+
+// scale-rem-font
+@function srem-f($size, $base-font-size: 16) {
+	@return calc(math.div($size, $base-font-size) * var(--font-rem));
+}
+
+// scale-px
+@function spx($size, $base-font-size: 16) {
+	@return calc($size * var(--px));
+}
+
+@function fluid-rem(
+	$min-size,
+	$max-size,
+	$min-width: $sp-vw,
+	$max-width: $pc-vw,
+	$base-font-size: 16
+) {
+	// pxからremに変換
+	$min-rem: math.div($min-size, $base-font-size);
+	$max-rem: math.div($max-size, $base-font-size);
+
+	// 線形補間の係数を計算
+	$slope: math.div(($max-rem - $min-rem), ($max-width - $min-width));
+	$y-intercept: $min-rem - ($slope * $min-width);
+
+	@return clamp(
+		#{$min-rem} * var(--rem),
+		(var(--window-width) * #{$slope} + #{$y-intercept}) * var(--rem),
+		#{$max-rem} * var(--rem)
+	);
+}
+
+@function fluid-px(
+	$min-size,
+	$max-size,
+	$min-width: $sp-vw,
+	$max-width: $pc-vw,
+	$base-font-size: 16
+) {
+	// 線形補間の係数を計算
+	$slope: math.div(($max-size - $min-size), ($max-width - $min-width));
+	$y-intercept: $min-size - ($slope * $min-width);
+
+	@return clamp(
+		#{$min-size} * var(--px),
+		(var(--window-width) * #{$slope} + #{$y-intercept}) * var(--px),
+		#{$max-size} * var(--px)
+	);
+}

@@ -1,0 +1,93 @@
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:meta';
+@use './config' as *;
+
+@mixin responsive($breakpoint) {
+	@if map.has-key($breakpoints, $breakpoint) {
+		@media screen and (min-width: #{meta.inspect(map.get($breakpoints, $breakpoint))}px) {
+			@content;
+		}
+	} @else {
+		// マップ型で定義されていない値が呼び出された時はエラーを返す
+		@error "指定されたブレークポイントは定義されていません。" + "指定できるブレークポイントは次のとおりです。 -> #{map.keys($breakpoints)}";
+	}
+}
+
+@mixin sp {
+	@media screen and (max-width: #{map.get($breakpoints, lg) - 1}px) {
+		@content;
+	}
+}
+
+@mixin pc {
+	@media screen and (min-width: #{map.get($breakpoints, lg)}px) {
+		@content;
+	}
+}
+
+@mixin hover {
+	@media (any-hover: hover) {
+		@content;
+	}
+}
+
+@mixin reduced-motion {
+	@media (prefers-reduced-motion: reduce) {
+		@content;
+	}
+}
+
+// 幅に応じて伸び縮みする値
+// $property 値を指定するプロパティ
+// $bpLower ブレークポイント（小）
+// $bpUpper ブレークポイント（大）
+// $spMin 値の下限
+// $spMax 値の上限
+// $a 小数点第2位で四捨五入
+@mixin responsiveSize($property, $bpLower, $bpUpper, $spMin, $spMax) {
+	$a: math.div(
+		(
+			math.round(
+				(100 * math.div(($spMax - $spMin), ($bpUpper - $bpLower))) * 100
+			)
+		),
+		100
+	);
+	$b: math.round($spMin - math.div($bpLower, 100) * $a);
+
+	#{$property}: $spMin; // clamp()に対応してないブラウザ用
+	#{$property}: clamp(#{$spMin}, calc(#{$a}vw + #{$b}), #{$spMax});
+}
+
+// z-index管理
+@mixin z-map($z-map) {
+	$before-index: -1;
+
+	@each $name, $value in $z-map {
+		$result-z: null;
+
+		@if $value == auto {
+			$result-z: $before-index + 1;
+		} @else {
+			$result-z: $value;
+		}
+
+		$before-index: $result-z;
+
+		#{$name}: $result-z;
+	}
+}
+
+// grid
+@mixin grid-container() {
+	display: grid;
+	grid-template-rows: min-content;
+	grid-template-columns: repeat(var(--grid-columns), 1fr);
+}
+
+@mixin grid-child($columns) {
+	display: grid;
+	grid-template-rows: min-content;
+	grid-template-columns: repeat($columns, 1fr);
+}

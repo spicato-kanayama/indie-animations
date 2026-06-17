@@ -1,6 +1,4 @@
 import gsap from 'gsap';
-// import SwupGaPlugin from '@swup/ga-plugin';
-// import SwupGtmPlugin from '@swup/gtm-plugin';
 import SwupHeadPlugin from '@swup/head-plugin';
 import SwupPreloadPlugin from '@swup/preload-plugin';
 import SwupScriptsPlugin from '@swup/scripts-plugin';
@@ -26,7 +24,6 @@ export class Transitions {
 		this.onContentReplaceBind = this.onContentReplace.bind(this);
 		this.onAnimationInEndBind = this.onAnimationInEnd.bind(this);
 		this.onAnimationOutStartBind = this.onAnimationOutStart.bind(this);
-		this.onPageViewBind = this.onPageView.bind(this);
 	}
 
 	// =============================================================================
@@ -51,15 +48,12 @@ export class Transitions {
 	initSwup() {
 		this.swup = new Swup({
 			plugins: [
-				// new SwupGaPlugin(),
-				// new SwupGtmPlugin(),
 				new SwupHeadPlugin({
 					persistAssets: true,
 					awaitAssets: true,
 				}),
 				new SwupPreloadPlugin({
 					preloadHoveredLinks: true,
-					// @ts-ignore
 					preloadInitialPage: !import.meta.env.DEV,
 				}),
 				new SwupScriptsPlugin(),
@@ -102,7 +96,6 @@ export class Transitions {
 		this.swup.hooks.on('fetch:timeout', (e) => {
 			console.log('fetch:timeout:', e);
 		});
-		this.swup.hooks.on('page:view', this.onPageViewBind);
 	}
 
 	/**
@@ -185,27 +178,5 @@ export class Transitions {
 	onAnimationInEnd() {
 		document.documentElement.classList.remove(Transitions.BUSY_CLASS);
 		document.documentElement.classList.add(Transitions.READY_CLASS);
-	}
-
-	/**
-	 * page:viewで発火
-	 * コンテンツの置換後、新しいコンテンツが表示されたタイミング
-	 *
-	 * @see https://swup.js.org/hooks/#page-view
-	 * @param visit: VisitType
-	 */
-	onPageView() {
-		// On sites using gtag.js
-		// window.gtag('config', GA_MEASUREMENT_ID, {
-		//   page_title: document.title,
-		//   page_path: window.location.pathname + window.location.search
-		// });
-		//
-		// Google Tag Manager
-		// window.dataLayer.push({
-		// 	event: 'VirtualPageview',
-		// 	virtualPageURL: window.location.pathname + window.location.search,
-		// 	virtualPageTitle: document.title,
-		// });
 	}
 }

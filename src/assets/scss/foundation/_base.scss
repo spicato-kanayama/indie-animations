@@ -1,0 +1,98 @@
+@use '../global' as *;
+
+:root.is-scroll-lock {
+	overflow: clip;
+	scrollbar-gutter: stable;
+}
+
+body {
+	font-family:
+		var(--font-instrument-serif), var(--font-shippori-mincho), serif;
+	color: var(--color-text-white);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-size-adjust: none;
+}
+
+a {
+	display: block;
+	color: currentcolor;
+	cursor: pointer;
+}
+
+button {
+	color: currentcolor;
+	cursor: pointer;
+}
+
+details,
+summary {
+	cursor: pointer;
+}
+
+video,
+img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+svg {
+	display: block;
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+.preload * {
+	transition: none !important;
+}
+
+::selection {
+	color: var(--color-white);
+	background-color: var(--color-black);
+}
+
+.lContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 100vh;
+	background-image:
+		linear-gradient(
+			105deg,
+			transparent 16%,
+			oklch(58% 0.22 200deg) 42%,
+			oklch(62% 0.24 320deg) 56%,
+			transparent 84%
+		),
+		conic-gradient(
+			from 90deg,
+			oklch(66% 0.2 60deg),
+			oklch(54% 0.23 180deg),
+			oklch(64% 0.22 300deg),
+			oklch(66% 0.2 60deg)
+		);
+	background-size: 200% 200%;
+	mix-blend-mode: color-dodge;
+	animation: background-animation 16s ease-in-out infinite forwards;
+	will-change: background-position;
+}
+
+.lMain {
+	flex-grow: 1;
+	width: 100%;
+}
+
+@keyframes background-animation {
+	0%,
+	100% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+}

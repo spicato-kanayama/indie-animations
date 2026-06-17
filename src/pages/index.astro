@@ -1,28 +1,64 @@
 ---
+// layouts
 import BaseLayout from '@layouts/BaseLayout.astro';
-import Button from '@components/core/Button/Button.astro';
 
 const props = {
 	slug: 'home',
 	title: 'TOP',
 };
+
+type PostProps = {
+	slug: string;
+	title: string;
+};
+
+type PostModule = {
+	default: any;
+	props: PostProps;
+};
+
+const postModules = import.meta.glob<PostModule>('../posts/*.astro', {
+	eager: true,
+});
+const posts = Object.values(postModules).map((mod) => {
+	return {
+		slug: mod.props.slug,
+		title: mod.props.title,
+		Contents: mod.default,
+	};
+});
 ---
 
 <BaseLayout {...props}>
-	<div class="container">
-		<h1 class="top">Astro</h1>
-		<div class="box"></div>
-
-		<div class="note">
-			<div class="headline">見出し</div>
-
-			<div class="text">
-				ダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキスト
-			</div>
+	<div class="pHome">
+		<div class="pHomeHeadline">
+			<h1 class="pHomeHeadline__text">Indie Animations</h1>
 		</div>
 
-		<div class="button">
-			<Button> Home Button </Button>
+		<div class="pHomeArchives">
+			{
+				posts.map(({ slug, title, Contents }) => (
+					<div class="pHomeArchives__item">
+						<a href={`/${slug}/`} class="pHomeArchives__item_link">
+							<div class="pHomeArchives__item_head">
+								<h2 class="pHomeArchives__item_head_title">
+									{title}
+								</h2>
+
+								<div class="pHomeArchives__item_head_icon">
+									<svg role="img" aria-hidden="true">
+										<use href="/assets/images/common/symbol.svg#arrow" />
+									</svg>
+								</div>
+							</div>
+
+							<div class="pHomeArchives__item_contents">
+								<Contents />
+							</div>
+						</a>
+					</div>
+				))
+			}
 		</div>
 	</div>
 

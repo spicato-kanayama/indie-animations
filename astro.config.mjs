@@ -4,6 +4,11 @@ import playformCompress from '@playform/compress';
 
 const chunkFileNames = new Map();
 
+const aliases = {
+	'@': './src',
+	'@scss': './src/assets/scss',
+};
+
 // https://astro.build/config
 export default defineConfig({
 	// HTMLのminify
@@ -169,6 +174,9 @@ export default defineConfig({
 					return { relative: true };
 				}
 			},
+		},
+		resolve: {
+			alias: aliases,
 		},
 	},
 	integrations: [

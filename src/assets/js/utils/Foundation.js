@@ -1,9 +1,11 @@
-// 参照 : https://github.com/spicato-inc/fortenv-script
-
-// import ViewportFixed from '@js/components/ViewportFixed';
+// libs
 
 // 初期設定
 function init() {
+	requestAnimationFrame(() => {
+		document.body.classList.remove('preload');
+	});
+
 	document.addEventListener('DOMContentLoaded', () => {});
 
 	window.addEventListener('load', () => {});
@@ -11,10 +13,7 @@ function init() {
 
 // libsの読み込み
 function loadLibs() {
-	document.addEventListener('DOMContentLoaded', () => {
-		// viewport固定（フルリキッドの場合はなし）
-		// ViewportFixed();
-	});
+	document.addEventListener('DOMContentLoaded', () => {});
 
 	window.addEventListener('load', () => {});
 }

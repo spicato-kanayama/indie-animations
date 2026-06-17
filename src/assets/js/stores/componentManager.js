@@ -10,11 +10,7 @@ const isDebugEnabled = () => {
 			typeof window !== 'undefined' &&
 			window.COMPONENT_MANAGER_DEBUG === true
 		);
-	} catch (error) {
-		console.warn(
-			'ComponentManager: デバッグ設定の確認中にエラーが発生',
-			error
-		);
+	} catch (e) {
 		return false;
 	}
 };

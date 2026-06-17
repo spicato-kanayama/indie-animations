@@ -1,1 +1,29 @@
-// @use '../global' as *;
+@use '../global' as *;
+
+.lFooter {
+	&__inner {
+		@include grid-container;
+
+		width: 100%;
+		padding: spx(40) 0;
+	}
+
+	&__attention {
+		display: flex;
+		flex-direction: column;
+		grid-column: 2 / var(--grid-columns);
+		gap: spx(4);
+		align-items: center;
+		font-size: srem-f(14);
+		line-height: 1.8;
+		text-align: center;
+	}
+
+	&__copyright {
+		grid-column: 2 / var(--grid-columns);
+		margin-top: spx(32);
+		font-size: srem-f(12);
+		line-height: 1.5;
+		text-align: center;
+	}
+}
