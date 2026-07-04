@@ -20,9 +20,9 @@
 	// prettier-ignore
 	--window-width: calc(tan(atan2(var(--vw), 1px)) * min(1, 16 / tan(atan2(var(--one-rem), 1px))));
 	// 小さくなりすぎないように、スケールの最小値を1に設定する場合
-	--scale: max(1, var(--window-width) / #{$sp-vw});
+	// --scale: max(1, var(--window-width) / #{$sp-vw});
 	// スケールの最小値を1に設定しない場合
-	// --scale: var(--window-width) / #{$sp-vw};
+	--scale: var(--window-width) / #{$sp-vw};
 	--font-scale: var(--scale);
 	--px: calc(1px * var(--scale));
 	--rem: calc(1rem * var(--scale));
@@ -35,7 +35,8 @@
 
 	// color
 	--color-white: #fff;
-	--color-black: #000;
+	--color-black-1: #000;
+	--color-black-2: #111;
 	--color-background-black: #1c1c1c;
 	--color-text-white: #f5f5f5;
 	--color-gray-1: #3a3a3a;
@@ -219,7 +220,7 @@
 		// --scale: max(1, var(--window-width) / #{$pc-vw});
 		--font-scale: max(0.9, var(--window-width) / #{$pc-vw});
 		// Grid
-		--grid-columns: 62;
+		--grid-columns: 48;
 	}
 }
 

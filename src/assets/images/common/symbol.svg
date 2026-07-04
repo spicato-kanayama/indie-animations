@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg">
-	<symbol id="arrow" viewBox="0 0 144 124" fill="none" stroke="none">
-		<path fill="none" stroke="currentColor" stroke-width="2" d="M82 2C82 35.1371 108.863 62 142 62M142 62C108.863 62 82 88.8629 82 122M142 62H2" />
+	<symbol id="arrow" viewBox="0 0 144 144" fill="none" stroke="none">
+		<path d="M82 12C82 45.1371 108.863 72 142 72M142 72C108.863 72 82 98.8629 82 132M142 72H2" stroke="currentColor" stroke-width="3"/>
 	</symbol>
 </svg>

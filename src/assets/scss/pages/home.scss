@@ -49,16 +49,104 @@
 		}
 
 		&_contents {
+			position: relative;
+			z-index: 1;
 			display: flex;
 			grid-column: 1 / -1;
 			align-items: center;
 			justify-content: center;
-			aspect-ratio: 3 / 3;
+			width: 100%;
+			height: spx(366);
+			padding: spx(48);
 			margin-top: spx(12);
 			background-color: rgb(255 255 255 / 33%);
 			border: 1px solid rgb(255 255 255 / 20%);
 			box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
-			backdrop-filter: blur(24px);
+			backdrop-filter: blur(2px);
+
+			#bauhaus {
+				width: auto;
+				height: 100%;
+			}
+		}
+	}
+}
+
+@include pc {
+	.pHome {
+		padding: spx(48) 0;
+	}
+
+	.pHomeHeadline {
+		grid-column: 4 / calc(var(--grid-columns) - 2);
+		font-size: srem-f(128);
+	}
+
+	.pHomeArchives {
+		grid-column: 6 / calc(var(--grid-columns) - 4);
+		row-gap: spx(64);
+		margin-top: spx(128);
+
+		&__item {
+			--_grid-column-width: calc((var(--grid-columns) - 11) / 3);
+
+			grid-column-end: span var(--_grid-column-width);
+
+			&_link {
+				display: grid;
+				grid-template-columns: subgrid;
+				grid-column: 1 / -1;
+			}
+
+			&_head {
+				display: grid;
+				grid-template-columns: subgrid;
+				grid-column: 1 / -1;
+
+				&_title {
+					grid-column: 1 / -3;
+					font-size: srem-f(24);
+				}
+
+				&_icon {
+					grid-column: -3 / -1;
+					aspect-ratio: 1 / 1;
+				}
+			}
+
+			&_contents {
+				position: relative;
+				z-index: 1;
+				display: flex;
+				grid-column: 1 / -1;
+				align-items: center;
+				justify-content: center;
+				width: 100%;
+				height: spx(366);
+				padding: spx(48);
+				margin-top: spx(12);
+				background-color: rgb(255 255 255 / 33%);
+				border: 1px solid rgb(255 255 255 / 20%);
+				box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+				backdrop-filter: blur(2px);
+
+				#bauhaus {
+					width: auto;
+					height: 100%;
+				}
+			}
+
+			&:nth-child(3n + 1) {
+				grid-column-start: 1;
+			}
+
+			&:nth-child(3n + 2) {
+				grid-column-start: calc(var(--_grid-column-width) + 2);
+			}
+
+			&:nth-child(3n + 3) {
+				grid-column-start: calc(var(--_grid-column-width) * 2 + 2);
+			}
 		}
 	}
 }

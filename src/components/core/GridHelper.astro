@@ -1,12 +1,14 @@
 <div class="cGrid">
 	{
-		Array.from({ length: 62 }, (_, i) => (
+		Array.from({ length: 48 }, (_, i) => (
 			<div class="cGrid__line" data-id={i + 1} />
 		))
 	}
 </div>
 
 <style lang="scss">
+	@use '/src/assets/scss/global' as *;
+
 	.cGrid {
 		position: fixed;
 		inset: 0;
@@ -25,6 +27,16 @@
 
 			&:first-child {
 				border-left: none;
+			}
+		}
+	}
+
+	@include pc {
+		.cGrid {
+			&__line {
+				&:nth-child(n + 25) {
+					display: block;
+				}
 			}
 		}
 	}

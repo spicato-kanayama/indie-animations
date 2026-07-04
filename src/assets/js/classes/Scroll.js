@@ -8,8 +8,8 @@ import Lenis from 'lenis';
 export class Scroll {
 	static init() {
 		this.lenis = new Lenis({
-			lerp: 1,
-			duration: 0.4,
+			lerp: 0.1,
+			duration: 0.8,
 			anchors: {
 				offset: -40,
 			},

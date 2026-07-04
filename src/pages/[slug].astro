@@ -40,5 +40,24 @@ const pageProps = {
 ---
 
 <BaseLayout {...pageProps}>
-	<PostComponent />
+	<div class="pSingle">
+		<div class="pSingle__inner">
+			<div class="pSingle__back">
+				<a href="/" class="pSingle__back_link">
+					<div class="pSingle__back_icon">
+						<svg role="img" aria-hidden="true">
+							<use href="/assets/images/common/symbol.svg#arrow"
+							></use>
+						</svg>
+					</div>
+
+					<div class="pSingle__back_text">Back</div>
+				</a>
+			</div>
+
+			<div class="pSingle__contents">
+				<PostComponent />
+			</div>
+		</div>
+	</div>
 </BaseLayout>

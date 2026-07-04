@@ -1,0 +1,43 @@
+@use '../global' as *;
+
+.pSingle {
+	position: relative;
+	z-index: 1;
+
+	&__inner {
+		@include grid-container;
+
+		width: 100%;
+		min-height: 100svh;
+		padding-top: spx(24);
+	}
+
+	&__back {
+		grid-column: 2 / var(--grid-columns);
+
+		&_link {
+			display: flex;
+			grid-column: 2 / var(--grid-columns);
+			gap: spx(8);
+			align-items: center;
+			justify-content: flex-start;
+		}
+
+		&_icon {
+			width: spx(24);
+			aspect-ratio: 1 / 1;
+			color: var(--color-white);
+			rotate: 180deg;
+		}
+
+		&_text {
+			font-size: srem-f(24);
+		}
+	}
+
+	&__contents {
+		display: flex;
+		grid-column: 2 / var(--grid-columns);
+		align-items: center;
+	}
+}

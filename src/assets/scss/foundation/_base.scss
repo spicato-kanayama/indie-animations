@@ -60,6 +60,17 @@ svg {
 	flex-direction: column;
 	align-items: center;
 	min-height: 100vh;
+}
+
+.lMain {
+	flex-grow: 1;
+	width: 100%;
+}
+
+.pBackground {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
 	background-image:
 		linear-gradient(
 			105deg,
@@ -79,11 +90,6 @@ svg {
 	mix-blend-mode: color-dodge;
 	animation: background-animation 16s ease-in-out infinite forwards;
 	will-change: background-position;
-}
-
-.lMain {
-	flex-grow: 1;
-	width: 100%;
 }
 
 @keyframes background-animation {
