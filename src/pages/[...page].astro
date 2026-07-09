@@ -1,0 +1,298 @@
+---
+import type { GetStaticPaths } from 'astro';
+
+// layouts
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const props = {
+	slug: 'home',
+	title: 'Home',
+};
+
+type PostProps = {
+	slug: string;
+	title: string;
+	createdAt: Date;
+};
+
+type PostModule = {
+	default: any;
+	props: PostProps;
+};
+
+type PostListItem = {
+	slug: string;
+	title: string;
+	createdAt: Date | null;
+	Contents: any;
+};
+
+type PageProps = {
+	data: PostListItem[];
+	current: number;
+	total: number;
+	url: {
+		prev: string | null;
+		next: string | null;
+	};
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+	const postModules = import.meta.glob<PostModule>('../posts/*.astro', {
+		eager: true,
+	});
+
+	const posts: PostListItem[] = Object.values(postModules).map((mod) => {
+		const createdAt = mod.props.createdAt
+			? new Date(mod.props.createdAt)
+			: null;
+
+		return {
+			slug: mod.props.slug,
+			title: mod.props.title,
+			createdAt: createdAt,
+			Contents: mod.default,
+		};
+	});
+
+	// 日付順にソート
+	const sortedPosts = posts.sort(
+		(a, b) => (b.createdAt?.getTime() || 0) - (a.createdAt?.getTime() || 0)
+	);
+
+	// 表示件数
+	const pageSize = 9;
+
+	const lastPage = Math.ceil(sortedPosts.length / pageSize);
+
+	const buildPath = (pageNumber: number): string => {
+		if (pageNumber <= 1) {
+			return '/';
+		}
+
+		return `/page/${pageNumber}`;
+	};
+
+	return Array.from({ length: lastPage }, (_, index) => {
+		const currentPage = index + 1;
+		const start = index * pageSize;
+		const end = start + pageSize;
+
+		return {
+			params: {
+				page: currentPage === 1 ? '' : `page/${currentPage}`,
+			},
+			props: {
+				page: {
+					data: sortedPosts.slice(start, end),
+					current: currentPage,
+					total: lastPage,
+					url: {
+						prev:
+							currentPage > 1 ? buildPath(currentPage - 1) : null,
+						next:
+							currentPage < lastPage
+								? buildPath(currentPage + 1)
+								: null,
+					},
+				} satisfies PageProps,
+			},
+		};
+	});
+};
+
+const { page } = Astro.props as { page: PageProps };
+
+const getPagePath = (pageNumber: number): string => {
+	if (pageNumber <= 1) {
+		return '/';
+	}
+
+	return `/page/${pageNumber}`;
+};
+
+const getVisiblePageNumbers = (
+	currentPage: number,
+	totalPages: number
+): Array<number | 'ellipsis'> => {
+	const displayCount = 5;
+	const half = Math.floor(displayCount / 2);
+
+	if (totalPages <= displayCount) {
+		return Array.from({ length: totalPages }, (_, index) => index + 1);
+	}
+
+	if (currentPage <= half) {
+		return [1, 2, 3, 'ellipsis', totalPages];
+	}
+
+	if (currentPage > totalPages - half) {
+		return [1, 'ellipsis', totalPages - 2, totalPages - 1, totalPages];
+	}
+
+	return [
+		1,
+		'ellipsis',
+		currentPage - 1,
+		currentPage,
+		currentPage + 1,
+		'ellipsis',
+		totalPages,
+	];
+};
+
+const visiblePageNumbers = getVisiblePageNumbers(page.current, page.total);
+---
+
+<BaseLayout {...props}>
+	<div class="pHome">
+		<div class="pHomeHeadline">
+			<h1 class="pHomeHeadline__text">Indie Animations</h1>
+		</div>
+
+		<div class="pHomeArchives">
+			<div class="pHomeArchives__list">
+				{
+					page.data.map(({ slug, title, Contents }) => (
+						<div class="pHomeArchives__item">
+							<a
+								href={`/${slug}/`}
+								class="pHomeArchives__item_link"
+							>
+								<div class="pHomeArchives__item_head">
+									<h2 class="pHomeArchives__item_head_title">
+										{title}
+									</h2>
+
+									<div class="pHomeArchives__item_head_icon">
+										<svg role="img" aria-hidden="true">
+											<use href="/assets/images/common/symbol.svg#arrow" />
+										</svg>
+									</div>
+								</div>
+
+								<div class="pHomeArchives__item_contents">
+									<Contents />
+								</div>
+							</a>
+						</div>
+					))
+				}
+			</div>
+
+			{
+				visiblePageNumbers.length > 1 && (
+					<nav
+						class="pHomeArchives__pagination"
+						aria-label="ページネーション"
+					>
+						<div class="pHomeArchives__pagination_buttons">
+							<div
+								class="pHomeArchives__pagination_button"
+								data-direction="prev"
+							>
+								{page.url.prev ? (
+									<a
+										href={page.url.prev}
+										class="pHomeArchives__pagination_button_inner"
+										aria-label="前のページへ"
+									>
+										<svg role="img" aria-hidden="true">
+											<use href="/assets/images/common/symbol.svg#arrow" />
+										</svg>
+									</a>
+								) : (
+									<span
+										class="pHomeArchives__pagination_button_inner"
+										aria-disabled="true"
+									>
+										<svg role="img" aria-hidden="true">
+											<use href="/assets/images/common/symbol.svg#arrow" />
+										</svg>
+									</span>
+								)}
+							</div>
+
+							<div
+								class="pHomeArchives__pagination_button"
+								data-direction="next"
+							>
+								{page.url.next ? (
+									<a
+										href={page.url.next}
+										class="pHomeArchives__pagination_button_inner"
+										aria-label="次のページへ"
+									>
+										<svg role="img" aria-hidden="true">
+											<use href="/assets/images/common/symbol.svg#arrow" />
+										</svg>
+									</a>
+								) : (
+									<span
+										class="pHomeArchives__pagination_button_inner"
+										aria-disabled="true"
+									>
+										<svg role="img" aria-hidden="true">
+											<use href="/assets/images/common/symbol.svg#arrow" />
+										</svg>
+									</span>
+								)}
+							</div>
+						</div>
+
+						<div class="pHomeArchives__pagination_numbers">
+							{visiblePageNumbers.map((item) => {
+								if (item === 'ellipsis') {
+									return (
+										<div class="pHomeArchives__pagination_number is-ellipsis">
+											<span class="pHomeArchives__pagination_number_inner">
+												...
+											</span>
+										</div>
+									);
+								}
+
+								const pageNumber = item;
+								const isCurrent = pageNumber === page.current;
+								const isFirst = pageNumber === 1;
+								const isLast = pageNumber === page.total;
+
+								return (
+									<div
+										class={`pHomeArchives__pagination_number${isCurrent ? ' is-current' : ''}`}
+										aria-current={
+											isCurrent ? 'page' : undefined
+										}
+										data-page-first={
+											isFirst ? '' : undefined
+										}
+										data-page-last={isLast ? '' : undefined}
+									>
+										{isCurrent ? (
+											<div class="pHomeArchives__pagination_number_inner">
+												{pageNumber}
+											</div>
+										) : (
+											<a
+												href={getPagePath(pageNumber)}
+												class="pHomeArchives__pagination_number_inner"
+											>
+												{pageNumber}
+											</a>
+										)}
+									</div>
+								);
+							})}
+						</div>
+					</nav>
+				)
+			}
+		</div>
+	</div>
+
+	<Fragment slot="before-close-head">
+		<script>
+			import '@js/pages/home.js';
+		</script>
+	</Fragment>
+</BaseLayout>

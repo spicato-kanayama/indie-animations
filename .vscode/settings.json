@@ -31,7 +31,7 @@
 
 	//  ↓↓↓ 拡張機能設定(言語補助)
 	// stylelint
-	"stylelint.validate": ["css", "scss"],
+	"stylelint.validate": ["css", "scss", "astro"],
 	"scss.validate": false,
 	"css.validate": false,
 

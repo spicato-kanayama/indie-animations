@@ -2,10 +2,11 @@
 export const props = {
 	slug: 'bauhaus',
 	title: 'Bauhaus',
+	createdAt: '7/2/2026, 4:39:38 PM',
 };
 ---
 
-<div id="bauhaus">
+<c-bauhaus id="bauhaus" class="js-single">
 	<h1 class="uVisuallyHidden">Bauhaus</h1>
 
 	<div class="bauhaus__headline">
@@ -127,7 +128,44 @@ export const props = {
 		<div class="bauhaus__rectangle_1"></div>
 		<div class="bauhaus__rectangle_2"></div>
 	</div>
-</div>
+</c-bauhaus>
+
+<script>
+	import { ComponentElement } from '/src/assets/js/stores/componentManager';
+
+	let interval: any = null;
+
+	class Bauhaus extends HTMLElement {
+		constructor() {
+			super();
+		}
+
+		connectedCallback() {
+			const singleClone = this.cloneNode(true);
+
+			// 3秒ごとにクローンを挿入し、既存の要素を削除する
+			interval = setInterval(() => {
+				const parent = this.parentNode;
+
+				this.remove();
+
+				// firstSingle の後に singleClone を挿入する
+				parent?.insertBefore(
+					singleClone.cloneNode(true),
+					this.nextSibling
+				);
+			}, 3000);
+		}
+
+		disconnectedCallback() {
+			if (interval) {
+				clearInterval(interval);
+			}
+		}
+	}
+
+	customElements.define('c-bauhaus', ComponentElement(Bauhaus, 'c-bauhaus'));
+</script>
 
 <style lang="scss" is:global>
 	@use '/src/assets/scss/global' as *;
@@ -137,27 +175,50 @@ export const props = {
 		--_height: auto;
 
 		position: relative;
+		display: flex;
+		flex-direction: column;
 		width: var(--_width);
 		height: var(--_height);
 		aspect-ratio: 1 / 1.414;
-		background-color: var(--color-white);
-		display: flex;
-		flex-direction: column;
 		overflow: hidden;
+		background-color: var(--color-white);
 
 		.bauhaus__headline {
 			position: absolute;
-			width: 85%;
+			bottom: spx(6);
 			z-index: 10;
-			align-self: center;
 			display: flex;
 			flex-direction: column;
 			align-items: flex-start;
-			bottom: spx(6);
+			align-self: center;
+			width: 85%;
 			color: var(--color-black-2);
 
 			&_year {
 				width: 22%;
+				opacity: 0;
+				translate: 0 33%;
+				animation-name: bauhaus-headline-year-in;
+				animation-duration: 0.6s;
+				animation-timing-function: var(--ease-gleasing);
+				animation-delay: 0.52s;
+				animation-fill-mode: forwards;
+			}
+
+			@keyframes bauhaus-headline-year-in {
+				0% {
+					opacity: 0;
+					translate: 0 33%;
+				}
+
+				60% {
+					opacity: 1;
+				}
+
+				100% {
+					opacity: 1;
+					translate: 0 0;
+				}
 			}
 
 			&_text {
@@ -170,6 +231,42 @@ export const props = {
 
 				&:not([data-id='1']) {
 					margin-top: -7.2%;
+				}
+
+				&[data-id='2'] {
+					opacity: 0;
+					translate: 0 -60%;
+					animation-name: bauhaus-headline-text-in;
+					animation-duration: 0.6s;
+					animation-timing-function: var(--ease-gleasing);
+					animation-delay: 0.4s;
+					animation-fill-mode: forwards;
+				}
+
+				&[data-id='3'] {
+					opacity: 0;
+					translate: 0 -60%;
+					animation-name: bauhaus-headline-text-in;
+					animation-duration: 0.6s;
+					animation-timing-function: var(--ease-gleasing);
+					animation-delay: 0.52s;
+					animation-fill-mode: forwards;
+				}
+			}
+
+			@keyframes bauhaus-headline-text-in {
+				0% {
+					opacity: 0;
+					translate: 0 -60%;
+				}
+
+				60% {
+					opacity: 1;
+				}
+
+				100% {
+					opacity: 1;
+					translate: 0 0;
 				}
 			}
 		}
@@ -189,6 +286,29 @@ export const props = {
 				aspect-ratio: 1 / 1;
 				background-color: #d0211c;
 				border-radius: 50%;
+				opacity: 0;
+				translate: 100% 0;
+				animation-name: bauhaus-circle-1-in;
+				animation-duration: 1.2s;
+				animation-timing-function: var(--ease-in-out-expo);
+				animation-delay: 0.4s;
+				animation-fill-mode: forwards;
+			}
+
+			@keyframes bauhaus-circle-1-in {
+				0% {
+					opacity: 0;
+					translate: 100% 0;
+				}
+
+				40% {
+					opacity: 1;
+				}
+
+				100% {
+					opacity: 1;
+					translate: 0 0;
+				}
 			}
 
 			&_2 {
@@ -200,6 +320,29 @@ export const props = {
 				aspect-ratio: 1 / 1;
 				background-color: #d0211c;
 				border-radius: 50%;
+				opacity: 0;
+				translate: -400% 0;
+				animation-name: bauhaus-circle-2-in;
+				animation-duration: 1s;
+				animation-timing-function: var(--ease-in-out-expo);
+				animation-delay: 0.56s;
+				animation-fill-mode: forwards;
+			}
+
+			@keyframes bauhaus-circle-2-in {
+				0% {
+					opacity: 0;
+					translate: -400% 0;
+				}
+
+				70% {
+					opacity: 1;
+				}
+
+				100% {
+					opacity: 1;
+					translate: 0 0;
+				}
 			}
 		}
 
@@ -213,11 +356,12 @@ export const props = {
 				background-color: #1a56a0;
 			}
 		}
+
 		.bauhaus__rectangle {
 			&_1 {
 				position: absolute;
-				left: 37%;
 				top: 26%;
+				left: 37%;
 				width: 20%;
 				height: 48%;
 				background-color: var(--color-black-2);
@@ -231,6 +375,13 @@ export const props = {
 				height: 48%;
 				background-color: #f5c800;
 			}
+		}
+	}
+
+	@include pc {
+		#bauhaus {
+			--_width: auto;
+			--_height: 100%;
 		}
 	}
 </style>

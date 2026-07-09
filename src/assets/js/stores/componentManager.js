@@ -10,7 +10,7 @@ const isDebugEnabled = () => {
 			typeof window !== 'undefined' &&
 			window.COMPONENT_MANAGER_DEBUG === true
 		);
-	} catch (e) {
+	} catch (_) {
 		return false;
 	}
 };
