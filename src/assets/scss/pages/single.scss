@@ -27,7 +27,6 @@
 		&_icon {
 			width: spx(24);
 			aspect-ratio: 1 / 1;
-			color: var(--color-white);
 			rotate: 180deg;
 		}
 
@@ -37,17 +36,46 @@
 	}
 
 	&__contents {
+		@include backdrop-background;
+
 		display: flex;
 		grid-column: 2 / var(--grid-columns);
 		align-items: center;
 		justify-content: center;
 		padding: spx(32);
 		margin-top: spx(24);
-		background-color: rgb(255 255 255 / 33%);
-		border: 1px solid rgb(255 255 255 / 20%);
-		border-radius: 2px;
-		box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
-		backdrop-filter: blur(2px);
+	}
+}
+
+.is-morning {
+	.pSingle {
+		&__contents {
+			@include backdrop-background-morning;
+		}
+	}
+}
+
+.is-afternoon {
+	.pSingle {
+		&__contents {
+			@include backdrop-background-afternoon;
+		}
+	}
+}
+
+.is-evening {
+	.pSingle {
+		&__contents {
+			@include backdrop-background-evening;
+		}
+	}
+}
+
+.is-night {
+	.pSingle {
+		&__contents {
+			@include backdrop-background-night;
+		}
 	}
 }
 

@@ -9,6 +9,9 @@
 @use './pages/home';
 @use './pages/single';
 
+// Components
+@use './components/background';
+
 :host {
 	--output-file-name: style;
 }

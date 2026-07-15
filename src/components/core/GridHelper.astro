@@ -12,14 +12,16 @@
 	.cGrid {
 		position: fixed;
 		inset: 0;
-		pointer-events: none;
 		z-index: -1;
 		display: grid;
 		grid-template-rows: auto;
 		grid-template-columns: repeat(var(--grid-columns), 1fr);
+		pointer-events: none;
 
 		&__line {
-			border-left: 1px solid var(--color-gray-1);
+			border-left: 1px solid
+				var(--grid-border-color, var(--color-black-2));
+			opacity: var(--grid-border-opacity, 1);
 
 			&:nth-child(n + 25) {
 				display: none;

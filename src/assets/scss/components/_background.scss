@@ -1,0 +1,133 @@
+@use '../global' as *;
+
+.pBackground {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	mix-blend-mode: color-dodge;
+
+	&::after {
+		position: absolute;
+		inset: 0;
+		content: '';
+		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 3000 3000' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+		mix-blend-mode: overlay;
+	}
+}
+
+.is-morning {
+	.pBackground {
+		background-color: hsl(282deg 0% 100% / 100%);
+		background-image:
+			radial-gradient(
+				circle at 18% 70%,
+				hsl(334deg 0% 100% / 100%) 3%,
+				transparent 67%
+			),
+			radial-gradient(
+				circle at 89.64% 25.72%,
+				hsl(192deg 100% 59% / 100%) 5%,
+				transparent 98%
+			),
+			radial-gradient(
+				circle at 12.66% 88.67%,
+				hsl(2deg 0% 100% / 100%) 3%,
+				transparent 86%
+			);
+	}
+}
+
+.is-afternoon {
+	.pBackground {
+		background-color: hsl(0deg 0% 100% / 100%);
+		background-image:
+			radial-gradient(
+				circle at 50.86% 5.32%,
+				hsl(359deg 100% 55% / 100%) 16%,
+				transparent 53%
+			),
+			radial-gradient(
+				circle at 52.37% 9.91%,
+				hsl(0deg 0% 100% / 100%) 29%,
+				transparent 53%
+			),
+			radial-gradient(
+				circle at 51.46% 7.79%,
+				hsl(192deg 100% 50% / 100%) 35%,
+				transparent 140%
+			),
+			radial-gradient(
+				circle at 50.74% 186.86%,
+				hsl(149deg 93% 64% / 100%) 6%,
+				transparent 94%
+			);
+	}
+}
+
+.is-evening {
+	.pBackground {
+		background-color: hsl(0deg 55% 52% / 100%);
+		background-image:
+			radial-gradient(
+				circle at -1.92% 16.77%,
+				hsl(330deg 25% 11% / 100%) 0%,
+				transparent 44%
+			),
+			radial-gradient(
+				circle at 5.31% 122.92%,
+				hsl(22deg 100% 90% / 100%) 11%,
+				transparent 62%
+			),
+			radial-gradient(
+				circle at 69.43% 56.7%,
+				hsl(10deg 100% 62% / 100%) 16.1%,
+				transparent 32.13%
+			),
+			radial-gradient(
+				circle at 51% 52%,
+				hsl(10deg 100% 62% / 100%) 16.1%,
+				transparent 32.86%
+			),
+			radial-gradient(
+				circle at 31% 61%,
+				hsl(10deg 100% 62% / 100%) 16.1%,
+				transparent 32.86%
+			),
+			radial-gradient(
+				circle at 100% 99%,
+				hsl(10deg 100% 62% / 100%) 16.1%,
+				transparent 44.47%
+			),
+			radial-gradient(
+				circle at 7.25% 89.19%,
+				hsl(10deg 100% 62% / 100%) 16.1%,
+				transparent 61%
+			),
+			radial-gradient(
+				circle at 79% 42%,
+				hsl(355deg 85% 56% / 100%) 5.75%,
+				transparent 66%
+			),
+			radial-gradient(
+				circle at 58.91% 24%,
+				hsl(355deg 85% 56% / 100%) 12.04%,
+				transparent 58%
+			),
+			radial-gradient(
+				circle at 23% 44%,
+				hsl(355deg 85% 56% / 100%) 8.92%,
+				transparent 33%
+			);
+	}
+}
+
+.is-night {
+	& .pBackground {
+		background-color: hsl(244deg 100% 50% / 100%);
+		background-image: radial-gradient(
+			circle at 50% 113%,
+			hsl(319deg 0% 0% / 100%) 54.16%,
+			transparent 102.23%
+		);
+	}
+}

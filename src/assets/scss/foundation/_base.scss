@@ -12,6 +12,18 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-size-adjust: none;
+
+	&.is-morning {
+		--grid-border-color: #0003164d;
+		--grid-border-opacity: 0.5;
+
+		color: var(--color-gray-1);
+	}
+
+	&.is-afternoon {
+		--grid-border-color: #fff;
+		--grid-border-opacity: 0.4;
+	}
 }
 
 a {
@@ -56,6 +68,8 @@ svg {
 }
 
 .lContainer {
+	position: relative;
+	z-index: 1;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -65,40 +79,4 @@ svg {
 .lMain {
 	flex-grow: 1;
 	width: 100%;
-}
-
-.pBackground {
-	position: fixed;
-	inset: 0;
-	pointer-events: none;
-	background-image:
-		linear-gradient(
-			105deg,
-			transparent 16%,
-			oklch(58% 0.22 200deg) 42%,
-			oklch(62% 0.24 320deg) 56%,
-			transparent 84%
-		),
-		conic-gradient(
-			from 90deg,
-			oklch(66% 0.2 60deg),
-			oklch(54% 0.23 180deg),
-			oklch(64% 0.22 300deg),
-			oklch(66% 0.2 60deg)
-		);
-	background-size: 200% 200%;
-	mix-blend-mode: color-dodge;
-	animation: background-animation 16s ease-in-out infinite forwards;
-	will-change: background-position;
-}
-
-@keyframes background-animation {
-	0%,
-	100% {
-		background-position: 0% 50%;
-	}
-
-	50% {
-		background-position: 100% 50%;
-	}
 }

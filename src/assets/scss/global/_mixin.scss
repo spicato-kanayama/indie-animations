@@ -91,3 +91,43 @@
 	grid-template-rows: min-content;
 	grid-template-columns: repeat($columns, 1fr);
 }
+
+@mixin backdrop-background() {
+	background-color: rgb(255 255 255 / 33%);
+	border: 1px solid rgb(255 255 255 / 20%);
+	border-radius: 4px;
+	box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+	backdrop-filter: blur(2px);
+}
+
+@mixin backdrop-background-morning() {
+	background-color: rgb(0 0 0 / 10%);
+	border: 1px solid rgb(0 0 0 / 2%);
+	border-radius: 4px;
+	box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+	backdrop-filter: blur(4px);
+}
+
+@mixin backdrop-background-afternoon() {
+	background-color: rgb(255 255 255 / 20%);
+	border: 1px solid rgb(255 255 255 / 8%);
+	border-radius: 4px;
+	box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
+	backdrop-filter: blur(2px);
+}
+
+@mixin backdrop-background-evening() {
+	background-color: rgb(255 255 255 / 40%);
+	border: 1px solid rgb(255 255 255 / 20%);
+	border-radius: 4px;
+	box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+	backdrop-filter: blur(2px);
+}
+
+@mixin backdrop-background-night() {
+	background-color: rgb(255 255 255 / 4%);
+	border: 1px solid rgb(255 255 255 / 2%);
+	border-radius: 4px;
+	box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+	backdrop-filter: blur(4px);
+}

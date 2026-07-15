@@ -50,7 +50,7 @@ export const props = {
 					singleClone.cloneNode(true),
 					this.nextSibling
 				);
-			}, 3000);
+			}, 4000);
 		}
 
 		disconnectedCallback() {

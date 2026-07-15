@@ -154,7 +154,7 @@ export const props = {
 					singleClone.cloneNode(true),
 					this.nextSibling
 				);
-			}, 3000);
+			}, 4000);
 		}
 
 		disconnectedCallback() {
@@ -230,7 +230,7 @@ export const props = {
 				}
 
 				&:not([data-id='1']) {
-					margin-top: -7.2%;
+					margin-top: -7.4%;
 				}
 
 				&[data-id='2'] {
@@ -249,7 +249,7 @@ export const props = {
 					animation-name: bauhaus-headline-text-in;
 					animation-duration: 0.6s;
 					animation-timing-function: var(--ease-gleasing);
-					animation-delay: 0.52s;
+					animation-delay: 0.48s;
 					animation-fill-mode: forwards;
 				}
 			}
@@ -258,10 +258,6 @@ export const props = {
 				0% {
 					opacity: 0;
 					translate: 0 -60%;
-				}
-
-				60% {
-					opacity: 1;
 				}
 
 				100% {
@@ -354,6 +350,30 @@ export const props = {
 				width: 34%;
 				aspect-ratio: 1 / 1;
 				background-color: #1a56a0;
+				opacity: 0;
+				transform-origin: top right;
+				rotate: -90deg;
+				animation-name: bauhaus-square-1-in;
+				animation-duration: 0.8s;
+				animation-timing-function: var(--ease-out-expo);
+				animation-delay: 0.54s;
+				animation-fill-mode: forwards;
+			}
+
+			@keyframes bauhaus-square-1-in {
+				0% {
+					opacity: 0;
+					rotate: -90deg;
+				}
+
+				50% {
+					opacity: 1;
+				}
+
+				100% {
+					opacity: 1;
+					rotate: 0deg;
+				}
 			}
 		}
 
@@ -365,6 +385,13 @@ export const props = {
 				width: 20%;
 				height: 48%;
 				background-color: var(--color-black-2);
+				opacity: 0;
+				translate: 0 60%;
+				animation-name: bauhaus-rectangle-1-in;
+				animation-duration: 0.6s;
+				animation-timing-function: var(--ease-gleasing);
+				animation-delay: 0.72s;
+				animation-fill-mode: forwards;
 			}
 
 			&_2 {
@@ -374,6 +401,45 @@ export const props = {
 				width: 23.7%;
 				height: 48%;
 				background-color: #f5c800;
+				opacity: 0;
+				translate: 0 100%;
+				animation-name: bauhaus-rectangle-2-in;
+				animation-duration: 0.6s;
+				animation-timing-function: var(--ease-gleasing);
+				animation-delay: 0.8s;
+				animation-fill-mode: forwards;
+			}
+
+			@keyframes bauhaus-rectangle-1-in {
+				0% {
+					opacity: 0;
+					translate: 0 30%;
+				}
+
+				33% {
+					opacity: 1;
+				}
+
+				100% {
+					opacity: 1;
+					translate: 0 0;
+				}
+			}
+
+			@keyframes bauhaus-rectangle-2-in {
+				0% {
+					opacity: 0;
+					translate: 0 40%;
+				}
+
+				33% {
+					opacity: 1;
+				}
+
+				100% {
+					opacity: 1;
+					translate: 0 0;
+				}
 			}
 		}
 	}

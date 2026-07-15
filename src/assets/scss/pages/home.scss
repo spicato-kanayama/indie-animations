@@ -57,6 +57,8 @@
 		}
 
 		&_contents {
+			@include backdrop-background;
+
 			position: relative;
 			z-index: 1;
 			display: flex;
@@ -67,11 +69,6 @@
 			height: spx(366);
 			padding: spx(48);
 			margin-top: spx(12);
-			background-color: rgb(255 255 255 / 33%);
-			border: 1px solid rgb(255 255 255 / 20%);
-			border-radius: 2px;
-			box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
-			backdrop-filter: blur(2px);
 
 			#bauhaus {
 				width: auto;
@@ -152,6 +149,46 @@
 	}
 }
 
+.is-morning {
+	.pHomeArchives {
+		&__item {
+			&_contents {
+				@include backdrop-background-morning;
+			}
+		}
+	}
+}
+
+.is-afternoon {
+	.pHomeArchives {
+		&__item {
+			&_contents {
+				@include backdrop-background-afternoon;
+			}
+		}
+	}
+}
+
+.is-evening {
+	.pHomeArchives {
+		&__item {
+			&_contents {
+				@include backdrop-background-evening;
+			}
+		}
+	}
+}
+
+.is-night {
+	.pHomeArchives {
+		&__item {
+			&_contents {
+				@include backdrop-background-night;
+			}
+		}
+	}
+}
+
 @include pc {
 	.pHome {
 		padding-top: spx(48);
@@ -180,28 +217,6 @@
 				&_title {
 					grid-column: 1 / -3;
 					font-size: srem-f(32);
-				}
-			}
-
-			&_contents {
-				position: relative;
-				z-index: 1;
-				display: flex;
-				grid-column: 1 / -1;
-				align-items: center;
-				justify-content: center;
-				width: 100%;
-				height: spx(366);
-				padding: spx(48);
-				margin-top: spx(12);
-				background-color: rgb(255 255 255 / 33%);
-				border: 1px solid rgb(255 255 255 / 20%);
-				box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
-				backdrop-filter: blur(2px);
-
-				#bauhaus {
-					width: auto;
-					height: 100%;
 				}
 			}
 
