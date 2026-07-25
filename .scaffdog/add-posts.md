@@ -27,7 +27,7 @@ export const props = {
 </c-{{ inputs.slug }}>
 
 <script>
-	import { ComponentElement } from '/src/assets/js/stores/componentManager';
+	import { ComponentElement } from '../assets/js/stores/componentManager';
 
 	let interval: any = null;
 

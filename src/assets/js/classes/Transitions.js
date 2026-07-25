@@ -5,6 +5,7 @@ import SwupScriptsPlugin from '@swup/scripts-plugin';
 import SwupJsPlugin from '@swup/js-plugin';
 import Swup from 'swup';
 import { Scroll } from './Scroll';
+import Ease from '../utils/Ease';
 
 const toDash = (str) => {
 	return str
@@ -64,15 +65,25 @@ export class Transitions {
 							to: '(.*)',
 							out: async () => {
 								await gsap.to('#swup', {
-									opacity: 0,
-									duration: 0.25,
+									yPercent: -100,
+									scale: 1.2,
+									duration: 0.32,
+									ease: Ease.DoubleExpoInOut,
 								});
 							},
 							in: async () => {
 								await gsap.fromTo(
 									'#swup',
-									{ opacity: 0 },
-									{ opacity: 1, duration: 0.25 }
+									{
+										yPercent: 100,
+										scale: 0.95,
+									},
+									{
+										yPercent: 0,
+										scale: 1,
+										duration: 0.64,
+										ease: Ease.DoubleExpoInOut,
+									}
 								);
 							},
 						},

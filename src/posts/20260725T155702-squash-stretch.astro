@@ -1,0 +1,288 @@
+---
+export const props = {
+	slug: 'squash-stretch',
+	title: 'Squash and Stretch',
+	createdAt: '7/25/2026, 3:57:02 PM',
+};
+---
+
+<c-squash-stretch id="squash-stretch" class="js-single">
+	<h1 class="uVisuallyHidden">Squash and Stretch</h1>
+
+	<div class="squash-stretch">
+		<div class="squash-stretch__circle"></div>
+	</div>
+</c-squash-stretch>
+
+<script>
+	import { ComponentElement } from '../assets/js/stores/componentManager';
+
+	let interval: any = null;
+
+	class SquashStretch extends HTMLElement {
+		constructor() {
+			super();
+		}
+
+		connectedCallback() {
+			const singleClone = this.cloneNode(true);
+
+			// 3秒ごとにクローンを挿入し、既存の要素を削除する
+			interval = setInterval(() => {
+				const parent = this.parentNode;
+
+				this.remove();
+
+				// firstSingle の後に singleClone を挿入する
+				parent?.insertBefore(
+					singleClone.cloneNode(true),
+					this.nextSibling
+				);
+			}, 4000);
+		}
+
+		disconnectedCallback() {
+			if (interval) {
+				clearInterval(interval);
+			}
+		}
+	}
+
+	customElements.define(
+		'c-squash-stretch',
+		ComponentElement(SquashStretch, 'c-squash-stretch')
+	);
+</script>
+
+<style lang="scss" is:global>
+	@use '/src/assets/scss/global' as *;
+
+	@property --_squash-stretch-x {
+		syntax: '<percentage>';
+		inherits: false;
+		initial-value: 0%;
+	}
+
+	@property --_squash-stretch-y {
+		syntax: '<percentage>';
+		inherits: false;
+		initial-value: 0%;
+	}
+
+	#squash-stretch {
+		--_bounce-out: linear(
+			0,
+			0.0008,
+			0.003,
+			0.0068,
+			0.0121,
+			0.0189,
+			0.0272,
+			0.0371,
+			0.0484,
+			0.0613,
+			0.0756,
+			0.0915,
+			0.1089,
+			0.1278,
+			0.1482,
+			0.1702,
+			0.1936,
+			0.2186,
+			0.245,
+			0.273,
+			0.3025,
+			0.3335,
+			0.366,
+			0.4001,
+			0.4356,
+			0.4727,
+			0.5112,
+			0.5513,
+			0.5929,
+			0.636,
+			0.6806,
+			0.7268,
+			0.7744,
+			0.8236,
+			0.8742,
+			0.9264,
+			0.9801,
+			0.9828,
+			0.957,
+			0.9328,
+			0.91,
+			0.8888,
+			0.869,
+			0.8508,
+			0.8341,
+			0.8189,
+			0.8052,
+			0.7931,
+			0.7824,
+			0.7733,
+			0.7656,
+			0.7595,
+			0.7549,
+			0.7518,
+			0.7502,
+			0.7502,
+			0.7516,
+			0.7546,
+			0.759,
+			0.765,
+			0.7725,
+			0.7815,
+			0.792,
+			0.8041,
+			0.8176,
+			0.8327,
+			0.8492,
+			0.8673,
+			0.8869,
+			0.908,
+			0.9306,
+			0.9548,
+			0.9804,
+			0.9963,
+			0.9837,
+			0.9727,
+			0.9631,
+			0.9551,
+			0.9485,
+			0.9435,
+			0.94,
+			0.938,
+			0.9375,
+			0.9386,
+			0.9411,
+			0.9452,
+			0.9507,
+			0.9578,
+			0.9664,
+			0.9765,
+			0.9881,
+			0.9994,
+			0.9934,
+			0.9889,
+			0.986,
+			0.9845,
+			0.9846,
+			0.9862,
+			0.9893,
+			0.9939,
+			1
+		);
+
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		aspect-ratio: 300 / 300;
+		overflow: hidden;
+		background-color: #3c3c3c;
+	}
+
+	.squash-stretch {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+
+		&__circle {
+			position: absolute;
+			top: -20%;
+			right: -30%;
+			width: 20%;
+			height: 20%;
+			background-color: #fff;
+			border-radius: 50%;
+			translate: var(--_squash-stretch-x) var(--_squash-stretch-y);
+			animation:
+				squash-stretch-x 3s forwards ease-out,
+				squash-stretch-y 3s forwards var(--_bounce-out),
+				squash-stretch-scale 3s forwards linear;
+		}
+	}
+
+	@keyframes squash-stretch-x {
+		from {
+			--_squash-stretch-x: 0%;
+		}
+
+		to {
+			--_squash-stretch-x: -660%;
+		}
+	}
+
+	@keyframes squash-stretch-y {
+		from {
+			--_squash-stretch-y: 0%;
+		}
+
+		to {
+			--_squash-stretch-y: 515%;
+		}
+	}
+
+	@keyframes squash-stretch-scale {
+		0% {
+			rotate: 0deg;
+			scale: 1;
+		}
+
+		14% {
+			rotate: 0deg;
+			scale: 1;
+		}
+
+		28% {
+			rotate: 40deg;
+		}
+
+		36% {
+			rotate: 24deg;
+			scale: 0.9 1.1;
+		}
+
+		40% {
+			rotate: 0deg;
+			scale: 1.3 0.7;
+		}
+
+		44% {
+			rotate: -24deg;
+			scale: 0.9 1.1;
+		}
+
+		50% {
+			rotate: -24deg;
+			scale: 1;
+		}
+
+		70% {
+			rotate: 0deg;
+			scale: 1;
+		}
+
+		74% {
+			rotate: 0deg;
+			scale: 1.15 0.85;
+		}
+
+		80% {
+			rotate: 0deg;
+			scale: 1;
+		}
+
+		100% {
+			scale: 1;
+		}
+	}
+
+	@include pc {
+		#squash-stretch {
+			max-width: spx(420);
+		}
+	}
+</style>
