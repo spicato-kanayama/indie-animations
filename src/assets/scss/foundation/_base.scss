@@ -58,6 +58,10 @@ svg {
 	overflow: visible;
 }
 
+#app {
+	overflow-x: clip;
+}
+
 .preload * {
 	transition: none !important;
 }

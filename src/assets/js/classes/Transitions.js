@@ -50,6 +50,8 @@ export class Transitions {
 		this.swup = new Swup({
 			plugins: [
 				new SwupHeadPlugin({
+					// style.scss など Vite 注入 CSS は SSR HTML に無いため persist 必須。
+					// 増殖は dedupeViteDevStyles で抑える。
 					persistAssets: true,
 					awaitAssets: true,
 				}),
@@ -65,8 +67,7 @@ export class Transitions {
 							to: '(.*)',
 							out: async () => {
 								await gsap.to('#swup', {
-									yPercent: -100,
-									scale: 1.2,
+									filter: 'blur(10px)',
 									duration: 0.32,
 									ease: Ease.DoubleExpoInOut,
 								});
@@ -75,12 +76,10 @@ export class Transitions {
 								await gsap.fromTo(
 									'#swup',
 									{
-										yPercent: 100,
-										scale: 0.95,
+										filter: 'blur(10px)',
 									},
 									{
-										yPercent: 0,
-										scale: 1,
+										filter: 'blur(0px)',
 										duration: 0.64,
 										ease: Ease.DoubleExpoInOut,
 									}
@@ -131,6 +130,22 @@ export class Transitions {
 		});
 	}
 
+	/**
+	 * Vite 開発時の style[data-vite-dev-id] を ID 単位で1つに保つ
+	 */
+	dedupeViteDevStyles() {
+		const seen = new Map();
+
+		document.querySelectorAll('style[data-vite-dev-id]').forEach((el) => {
+			const id = el.getAttribute('data-vite-dev-id');
+			if (!id) return;
+
+			const prev = seen.get(id);
+			if (prev) prev.remove();
+			seen.set(id, el);
+		});
+	}
+
 	// =============================================================================
 	// フック
 	// =============================================================================
@@ -168,6 +183,7 @@ export class Transitions {
 	onContentReplace(visit) {
 		Scroll?.init();
 		this.updateDocumentAttributes(visit);
+		this.dedupeViteDevStyles();
 	}
 
 	/**

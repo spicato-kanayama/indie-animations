@@ -177,6 +177,7 @@ export const props = {
 		position: relative;
 		display: flex;
 		flex-direction: column;
+		grid-column: 4 / -4;
 		width: 100%;
 		aspect-ratio: 300 / 300;
 		overflow: hidden;
@@ -280,9 +281,21 @@ export const props = {
 		}
 	}
 
+	.pHome {
+		& #squash-stretch {
+			grid-column: 5 / -5;
+		}
+	}
+
 	@include pc {
 		#squash-stretch {
-			max-width: spx(420);
+			grid-column: 10 / -10;
+		}
+
+		.pHome {
+			& #squash-stretch {
+				grid-column: 3 / -3;
+			}
 		}
 	}
 </style>

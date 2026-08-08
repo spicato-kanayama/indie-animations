@@ -171,14 +171,10 @@ export const props = {
 	@use '/src/assets/scss/global' as *;
 
 	#bauhaus {
-		--_width: 100%;
-		--_height: auto;
-
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		width: var(--_width);
-		height: var(--_height);
+		grid-column: 4 / -4;
 		aspect-ratio: 1 / 1.414;
 		overflow: hidden;
 		background-color: var(--color-white);
@@ -444,10 +440,21 @@ export const props = {
 		}
 	}
 
+	.pHome {
+		& #bauhaus {
+			grid-column: 6 / -6;
+		}
+	}
+
 	@include pc {
 		#bauhaus {
-			--_width: auto;
-			--_height: 100%;
+			grid-column: 8 / -8;
+		}
+
+		.pHome {
+			& #bauhaus {
+				grid-column: 4 / -4;
+			}
 		}
 	}
 </style>

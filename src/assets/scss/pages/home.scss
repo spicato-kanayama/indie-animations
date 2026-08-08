@@ -61,13 +61,13 @@
 
 			position: relative;
 			z-index: 1;
-			display: flex;
+			display: grid;
+			grid-template-columns: subgrid;
 			grid-column: 1 / -1;
 			align-items: center;
 			justify-content: center;
 			width: 100%;
 			height: spx(366);
-			padding: spx(48);
 			margin-top: spx(12);
 
 			& > * {

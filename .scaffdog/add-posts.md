@@ -17,6 +17,7 @@ export const props = {
 	slug: '{{ inputs.slug }}',
 	title: '{{ inputs.title }}',
 	createdAt: '{{ createdAt}}',
+	// fonts: ['https://fonts.googleapis.com/css2?family=...&display=swap'],
 };
 ---
 

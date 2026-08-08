@@ -5,6 +5,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 type PostProps = {
 	slug: string;
 	title: string;
+	fonts?: string[];
 };
 
 type PostModule = {
@@ -37,9 +38,27 @@ const pageProps = {
 	slug: post.slug,
 	title: post.title,
 };
+
+const fonts = post.fonts ?? [];
 ---
 
 <BaseLayout {...pageProps}>
+	<Fragment slot="before-close-head">
+		{
+			fonts.map((href) => (
+				<Fragment>
+					<link rel="preload" as="style" href={href} />
+					<link
+						rel="stylesheet"
+						href={href}
+						media="print"
+						onload="this.media='all'"
+					/>
+				</Fragment>
+			))
+		}
+	</Fragment>
+
 	<div class="pSingle">
 		<div class="pSingle__inner">
 			<div class="pSingle__back">

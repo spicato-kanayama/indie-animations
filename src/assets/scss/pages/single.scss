@@ -38,11 +38,10 @@
 	&__contents {
 		@include backdrop-background;
 
-		display: flex;
+		display: grid;
+		grid-template-columns: subgrid;
 		grid-column: 2 / var(--grid-columns);
 		align-items: center;
-		justify-content: center;
-		padding: spx(32);
 		margin-top: spx(24);
 	}
 }
@@ -85,7 +84,6 @@
 		z-index: 1;
 
 		&__inner {
-			height: 100vh;
 			padding: spx(48) 0 spx(80);
 		}
 
@@ -107,7 +105,7 @@
 
 		&__contents {
 			grid-column: 8 / calc(var(--grid-columns) - 6);
-			padding: spx(48);
+			padding: spx(48) 0;
 			margin-top: spx(48);
 			border-radius: 4px;
 		}

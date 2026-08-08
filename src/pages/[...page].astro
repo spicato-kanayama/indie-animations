@@ -13,6 +13,7 @@ type PostProps = {
 	slug: string;
 	title: string;
 	createdAt: Date;
+	fonts?: string[];
 };
 
 type PostModule = {
@@ -24,6 +25,7 @@ type PostListItem = {
 	slug: string;
 	title: string;
 	createdAt: Date | null;
+	fonts?: string[];
 	Contents: any;
 };
 
@@ -51,6 +53,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 			slug: mod.props.slug,
 			title: mod.props.title,
 			createdAt: createdAt,
+			fonts: mod.props.fonts,
 			Contents: mod.default,
 		};
 	});
@@ -102,6 +105,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const { page } = Astro.props as { page: PageProps };
+
+const fonts = [
+	...new Set(page.data.flatMap((post) => post.fonts ?? [])),
+];
 
 const getPagePath = (pageNumber: number): string => {
 	if (pageNumber <= 1) {
@@ -291,6 +298,20 @@ const visiblePageNumbers = getVisiblePageNumbers(page.current, page.total);
 	</div>
 
 	<Fragment slot="before-close-head">
+		{
+			fonts.map((href) => (
+				<Fragment>
+					<link rel="preload" as="style" href={href} />
+					<link
+						rel="stylesheet"
+						href={href}
+						media="print"
+						onload="this.media='all'"
+					/>
+				</Fragment>
+			))
+		}
+
 		<script>
 			import '@js/pages/home.js';
 		</script>
